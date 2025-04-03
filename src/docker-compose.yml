@@ -1,7 +1,13 @@
 services:
   restaurantdb:
     image: postgres
-
+  deliverydb:
+    image: postgres
+  orderdb:
+    image: mcr.microsoft.com/mssql/server
+  messagebroker:
+    image: rabbitmq:management  
 volumes:
     postgres_restaurant:
+    postgres_delivery:
 
