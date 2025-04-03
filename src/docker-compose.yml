@@ -1,0 +1,7 @@
+services:
+  restaurantdb:
+    image: postgres
+
+volumes:
+    postgres_restaurant:
+

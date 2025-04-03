@@ -1,0 +1,12 @@
+services:
+  restaurantdb:
+    container_name: restaurantdb
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=RestaurantDb
+    restart: always
+    ports:
+        - "5532:5532"
+    volumes:
+      - postgres_restaurant:/var/lib/postgresql/data/
