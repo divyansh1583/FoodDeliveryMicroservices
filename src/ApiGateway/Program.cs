@@ -7,8 +7,6 @@ builder.Services.AddReverseProxy()
     .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
 
 // Authentication (Basic for demo)
-builder.Services.AddAuthentication("BasicAuthentication")
-    .AddScheme<Microsoft.AspNetCore.Authentication.AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
