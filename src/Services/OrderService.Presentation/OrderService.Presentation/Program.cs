@@ -4,6 +4,8 @@ using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using OrderService.Infrastructure.Database;
 using BuildingBlocks.Behaviours;
+using FluentValidation;
+using BuildingBlocks.Exceptions.Handler;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +21,8 @@ var connectionString = builder.Configuration.GetConnectionString("Database");
 builder.Services.AddDbContext<OrderDbContext>(options =>
     options.UseSqlServer(connectionString)); // Ensure Microsoft.EntityFrameworkCore.SqlServer package is installed
 
+builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 // Configure MediatR
 builder.Services.AddMediatR(cfg =>
 {

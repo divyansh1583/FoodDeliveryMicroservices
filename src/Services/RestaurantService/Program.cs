@@ -3,6 +3,9 @@ using FluentValidation.AspNetCore;
 using Marten;
 using RestaurantService.Data;
 using BuildingBlocks.Behaviours;
+using FluentValidation;
+using BuildingBlocks.Exceptions.Handler;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -21,6 +24,8 @@ if (builder.Environment.IsDevelopment())
 {
     builder.Services.InitializeMartenWith<RestaurantInitialData>();
 }
+builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 // Configure MediatR
 builder.Services.AddMediatR(cfg =>
 {
