@@ -1,12 +1,9 @@
 // OrderService/Program.cs
 using FluentValidation.AspNetCore;
 using MassTransit;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 using OrderService.Infrastructure.Database;
-using System.Reflection;
-using Microsoft.Extensions.DependencyInjection; // Add this using directive
-using Microsoft.Extensions.Configuration; // Add this using directive
+using BuildingBlocks.Behaviours;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +22,8 @@ builder.Services.AddDbContext<OrderDbContext>(options =>
 builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
+    cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
+    cfg.AddOpenBehavior(typeof(LoggingBehavior<,>));
 });
 
 // Configure MassTransit with RabbitMQ

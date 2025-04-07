@@ -2,7 +2,7 @@
 using FluentValidation.AspNetCore;
 using Marten;
 using RestaurantService.Data;
-
+using BuildingBlocks.Behaviours;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -25,6 +25,8 @@ if (builder.Environment.IsDevelopment())
 builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
+    cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
+    cfg.AddOpenBehavior(typeof(LoggingBehavior<,>));
 });
 
 builder.Services.AddAuthorization();

@@ -4,6 +4,7 @@ using DeliveryService.Data;
 using FluentValidation.AspNetCore;
 using Marten;
 using MassTransit;
+using BuildingBlocks.Behaviours;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,8 @@ if (builder.Environment.IsDevelopment())
 builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
+    cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
+    cfg.AddOpenBehavior(typeof(LoggingBehavior<,>));
 });
 
 // Configure MassTransit with RabbitMQ
